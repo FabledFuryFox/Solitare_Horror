@@ -455,6 +455,7 @@ GameObject:
   - component: {fileID: 330585545}
   - component: {fileID: 330585544}
   - component: {fileID: 330585547}
+  - component: {fileID: 330585548}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -580,6 +581,30 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!114 &330585548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330585543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 041594cd31441a74594084bb56e1319b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  mouseSensitivity: 2
+  verticalRotationLimit: 80
+  lockCursor: 0
+  smoothing: 10
+  useSmoothing: 1
+  selectionRange: 10
+  selectableLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  crosshairColor: {r: 1, g: 1, b: 1, a: 1}
+  crosshairSize: 2
+  showCrosshair: 1
 --- !u!1001 &344594758
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4633,6 +4658,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2085980607}
+  - component: {fileID: 2085980608}
   m_Layer: 0
   m_Name: Deck of Cards
   m_TagString: Untagged
@@ -4649,7 +4675,7 @@ Transform:
   m_GameObject: {fileID: 2085980606}
   serializedVersion: 2
   m_LocalRotation: {x: 1, y: 0, z: 0, w: 0}
-  m_LocalPosition: {x: 1.975, y: 0.588, z: 0.687}
+  m_LocalPosition: {x: 2, y: 0.57, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4707,6 +4733,20 @@ Transform:
   - {fileID: 1981077070}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
+--- !u!114 &2085980608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2085980606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b086eae491ea6d4d9d4fd5deb39a1b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  cardList: []
+  cardBackMaterial: {fileID: 2100000, guid: 02337f600aba54c40b2e5fd9c9be2d3e, type: 2}
 --- !u!1001 &2144306061
 PrefabInstance:
   m_ObjectHideFlags: 0
