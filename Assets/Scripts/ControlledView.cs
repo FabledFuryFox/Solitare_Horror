@@ -19,6 +19,9 @@ public class ControlledView : MonoBehaviour
     [SerializeField] private float crosshairSize = 3f;
     [SerializeField] private bool showCrosshair = true;
 
+    [Header("Card Engine Reference")]
+    [SerializeField] private CardEngine cardEngine;
+
     private float verticalRotation = 0f;
     private float horizontalRotation = 0f;
     private float targetVerticalRotation = 0f;
@@ -54,6 +57,8 @@ public class ControlledView : MonoBehaviour
         
         horizontalRotation = targetHorizontalRotation;
         verticalRotation = targetVerticalRotation;
+
+
     }
 
     // Update is called once per frame
@@ -180,7 +185,17 @@ public class ControlledView : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, selectionRange, selectableLayers))
         {
-            OnObjectSelected(hit.collider.gameObject, hit.point, hit.normal);
+            
+           GameObject selectedObject = hit.collider.gameObject;
+           Debug.Log("Hit object: " + selectedObject.name);
+           if (selectedObject.transform.parent != null)
+           {
+                if (cardEngine.cardList.Contains(selectedObject.transform.parent.gameObject))
+                {
+           // Debug.Log("Selected card: " + selectedObject.name);
+                    cardEngine.GivePlayerCard();
+                }
+           }
         }
     }
 

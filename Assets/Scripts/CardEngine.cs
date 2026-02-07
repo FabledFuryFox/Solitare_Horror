@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using UnityEngine.InputSystem;
 
 public class CardEngine : MonoBehaviour
 {
@@ -13,6 +14,9 @@ public class CardEngine : MonoBehaviour
     public List<GameObject> PlayerHand = new List<GameObject>();
     public List<GameObject> ComputerHand = new List<GameObject>();
     public GameObject DeckStartingPosition;
+
+    public int PHandValue = 0;
+    public int CHandValue = 0;
 
     private int PCardsOut = 0;
     private int CCardsOut = 0;
@@ -66,6 +70,10 @@ public class CardEngine : MonoBehaviour
    {
         PCardsOut = 0; //Resets the counting of cards in play for each round (affects positioning)
         CCardsOut = 0;
+        
+        PHandValue = 0;
+        CHandValue = 0;
+        
         GivePlayerCard();
         
         GiveCompCard(false);
@@ -78,13 +86,19 @@ public class CardEngine : MonoBehaviour
    }
 
 
-   void GivePlayerCard() //This Function takes from the deck, adds it to the player's hand and positions the card to the front of the player
+   public void GivePlayerCard() //This Function takes from the deck, adds it to the player's hand and positions the card to the front of the player
    {
-        int RandomCardNum = Random.Range(0, cardList.Count);
+        int RandomCardNum = Random.Range(0, cardList.Count); //Pulls a random card from the deck and adds it to the player's hand
         GameObject SelectedCard = cardList[RandomCardNum];
         PlayerHand.Add(SelectedCard);
 
-        Vector3 targetPlayerPosition = new Vector3(-0.56f - (PCardsOut * 0.25f), -0.18f, -0.34f);
+        
+        CardValue cardValue = SelectedCard.GetComponent<CardValue>(); //Finds the value of the card and stores it
+        int v = cardValue.cardValue;
+        PHandValue += v;
+        
+
+        Vector3 targetPlayerPosition = new Vector3(-0.5f - (PCardsOut * 0.2f), -0.18f, -0.34f);
         Quaternion targetPlayerRotation = Quaternion.Euler(0, 180, 0);
 
         PCardsOut += 1;
@@ -98,11 +112,15 @@ public class CardEngine : MonoBehaviour
         int RandomCardNum = Random.Range(0, cardList.Count);
         GameObject SelectedCard = cardList[RandomCardNum];
         ComputerHand.Add(SelectedCard);
+
+        CardValue cardValue = SelectedCard.GetComponent<CardValue>();
+        int v = cardValue.cardValue;
+        CHandValue += v;
         
         if (!HiddenCard) //Checks to see if the card is supposed to be hidden or not (Important at the begining)
         {
            Quaternion targetComputerRotation = Quaternion.Euler(0, 0, 0); 
-           Vector3 targetComputerPosition = new Vector3(-0.56f - (CCardsOut * 0.25f), -0.18f, 0.34f);
+           Vector3 targetComputerPosition = new Vector3(-0.5f - (CCardsOut * 0.2f), -0.18f, 0.34f);
            CCardsOut += 1;
            cardList.Remove(cardList[RandomCardNum]);
            StartCoroutine(MoveCard(SelectedCard, targetComputerPosition, targetComputerRotation));
@@ -111,7 +129,7 @@ public class CardEngine : MonoBehaviour
         else
         {
            Quaternion targetComputerRotation = Quaternion.Euler(180, 0, 0);
-           Vector3 targetComputerPosition = new Vector3(-0.56f - (CCardsOut * 0.25f), 0, 0.34f);  
+           Vector3 targetComputerPosition = new Vector3(-0.5f - (CCardsOut * 0.2f), 0, 0.34f);  
            CCardsOut += 1;
            cardList.Remove(cardList[RandomCardNum]);
            StartCoroutine(MoveCard(SelectedCard, targetComputerPosition, targetComputerRotation));
@@ -139,4 +157,6 @@ public class CardEngine : MonoBehaviour
     {
         
     }
+
+    
 }
